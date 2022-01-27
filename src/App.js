@@ -128,20 +128,24 @@ function App() {
     const { event } = thing;
     setActiveSectionID(ID);
     setActiveTitle(title);
-    console.log("thing:enter", thing, ID);
+    // console.log("thing:enter", thing, ID);
   };
 
   const handleLeave = (ID) => (thing) => {
     const { event } = thing;
-    console.log("thing:leave", thing, ID);
+    // console.log("thing:leave", thing, ID);
   };
 
-  const handleMenuItemClick = (ID) => () => {
+  const handleMenuItemClick = (ID, title) => () => {
     const $scrollContainter = scrollRef?.current;
     const $scrollHeader = $scrollContainter.querySelector(`#${ID}`);
 
-    $scrollHeader.scrollIntoView({ behavior: "smooth" });
+    // $scrollHeader.scrollIntoView({ behavior: "smooth" });
+    $scrollHeader.scrollIntoView();
+    // setActiveSectionID(ID);
+    // setActiveTitle(title);
   };
+  console.log(activeSectionID, activeTitle);
 
   return (
     <Main>
@@ -157,7 +161,7 @@ function App() {
                 id={`${ID}__menu`}
                 key={title}
                 isActive={isActive}
-                onClick={handleMenuItemClick(ID)}
+                onClick={handleMenuItemClick(ID, title)}
               >
                 {title}
               </MenuItem>
