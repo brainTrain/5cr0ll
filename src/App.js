@@ -2,7 +2,7 @@ import React from "react";
 import styled, { createGlobalStyle, css } from "styled-components";
 import { Waypoint } from "react-waypoint";
 
-const titlez = ["oh", "shit", "dont", "go", "breakin", "my", "heart"];
+const titlez = ["Sometimes", "science", "is", "more", "art", "than", "scienc3"];
 
 const GlobalStyle = createGlobalStyle`
   html,body,#root {
