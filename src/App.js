@@ -1,20 +1,64 @@
 import React from "react";
 import styled, { createGlobalStyle, css } from "styled-components";
 import { Waypoint } from "react-waypoint";
+import SometimesPNG from "./Sometimes.png";
+import artPNG from "./art.png";
+import isPNG from "./is.png";
+import morePNG from "./more.png";
+import scienc3PNG from "./scienc3.png";
+import sciencePNG from "./science.png";
+import thanPNG from "./than.png";
 
-const titlez = ["Sometimes", "science", "is", "more", "art", "than", "scienc3"];
+const SOMETIMES = "Sometimes";
+const SCIENCE = "science";
+const IS = "is";
+const MORE = "more";
+const ART = "art";
+const THAN = "than";
+const SCIENC3 = "scienc3";
+
+const titlez = [SOMETIMES, SCIENCE, IS, MORE, ART, THAN, SCIENC3];
+
+const logoObject = {
+  [SOMETIMES]: SometimesPNG,
+  [SCIENCE]: sciencePNG,
+  [IS]: isPNG,
+  [MORE]: morePNG,
+  [ART]: artPNG,
+  [THAN]: thanPNG,
+  [SCIENC3]: scienc3PNG,
+};
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;   
+  }
+
   html,body,#root {
     height: 100%;
     width: 100%;
   }
 `;
 
-const H1 = styled.h1``;
+const H1 = styled.h1`
+  font-size: 4rem;
+`;
 
 const Content = styled.section`
   height 100rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Section = styled.section`
+  border: 1px solid #fff;
+  padding: 4rem;
+  padding-top: 0;
+`;
+
+const Image = styled.img`
+  max-width: 40rem;
 `;
 
 const ContentWrapper = styled.section`
@@ -61,10 +105,6 @@ const MainContentWrapper = styled.section`
   display: flex;
   height: 100%;
   overflow: hidden;
-`;
-
-const Section = styled.section`
-  border: 1px solid #fff;
 `;
 
 const TitleBar = styled.section`
@@ -135,7 +175,9 @@ function App() {
               >
                 <Section id={ID}>
                   <H1>{title}</H1>
-                  <Content />
+                  <Content>
+                    <Image src={logoObject[title]} alt={title} />
+                  </Content>
                 </Section>
               </Waypoint>
             );
