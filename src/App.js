@@ -15,7 +15,7 @@ const IS = "is";
 const MORE = "more";
 const ART = "art";
 const THAN = "than";
-const SCIENC3 = "scienc3";
+const SCIENC3 = "science";
 
 const titlez = [SOMETIMES, SCIENCE, IS, MORE, ART, THAN, SCIENC3];
 const titlezList = [
@@ -71,7 +71,7 @@ const GlobalStyle = createGlobalStyle`
 
 const H1 = styled.h1`
   font-size: 4rem;
-  margin-top: 3rem;
+  margin-top: 3px;
   margin-bottom: 2rem;
 `;
 
@@ -154,11 +154,21 @@ function App() {
   const [activeSectionID, setActiveSectionID] = React.useState(null);
   const [activeTitle, setActiveTitle] = React.useState("");
   const scrollRef = React.useRef(null);
+  const menuRef = React.useRef(null);
 
   const handleEnter = (ID, title) => (thing) => {
+    const { event } = thing;
     setActiveSectionID(ID);
     setActiveTitle(title);
-    console.log("thing:enter", ID);
+
+    // scroll into view if hidden
+    const $menuRef = menuRef?.current;
+    const $activeElement = $menuRef.querySelector(`#${ID}__menu`);
+    const isOutOfViewport = getIsOutOfViewport($activeElement, $menuRef);
+
+    if (isOutOfViewport) {
+      $activeElement.scrollIntoView();
+    }
   };
 
   const handleMenuItemClick = (ID, title) => () => {
@@ -175,7 +185,7 @@ function App() {
       <GlobalStyle />
       <TitleBar>{activeTitle}</TitleBar>
       <MainContentWrapper>
-        <Menu>
+        <Menu ref={menuRef}>
           {titlezList.map((title, index) => {
             const ID = getId(title, index);
             const isActive = ID === activeSectionID;
@@ -218,3 +228,28 @@ function App() {
 }
 
 export default App;
+
+/*!
+ * Check if an element is out of the viewport
+ * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * https://vanillajstoolkit.com/helpers/isoutofviewport/
+ * @param  {Node}  elem The element to check
+ * @return {Object}     A set of booleans for each side of the element
+ */
+function getIsOutOfViewport(element, container) {
+  console.log("element", element);
+  console.log("container", container);
+  // Get element's bounding
+  var bounding = element.getBoundingClientRect();
+
+  // Check if it's out of the viewport on each side
+  var out = {};
+  out.top = bounding.top < 0;
+  out.left = bounding.left < 0;
+  out.bottom = bounding.bottom > container.innerHeight;
+  out.right = bounding.right > container.innerWidth;
+  out.any = out.top || out.left || out.bottom || out.right;
+  out.all = out.top && out.left && out.bottom && out.right;
+
+  return out;
+}
