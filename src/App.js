@@ -156,7 +156,6 @@ function App() {
   const scrollRef = React.useRef(null);
 
   const handleEnter = (ID, title) => (thing) => {
-    const { event } = thing;
     setActiveSectionID(ID);
     setActiveTitle(title);
     console.log("thing:enter", ID);
