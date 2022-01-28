@@ -18,6 +18,35 @@ const THAN = "than";
 const SCIENC3 = "scienc3";
 
 const titlez = [SOMETIMES, SCIENCE, IS, MORE, ART, THAN, SCIENC3];
+const titlezList = [
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+  ...titlez,
+];
 
 const logoObject = {
   [SOMETIMES]: SometimesPNG,
@@ -45,7 +74,7 @@ const H1 = styled.h1`
 `;
 
 const Content = styled.section`
-  height 100rem;
+  height: 100rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,7 +91,7 @@ const Image = styled.img`
 `;
 
 const ContentWrapper = styled.section`
-  height 100%;
+  height: 100%;
   width: 100%;
   color: #fff;
   overflow: auto;
@@ -70,6 +99,7 @@ const ContentWrapper = styled.section`
 
 const Menu = styled.aside`
   padding: 0 1rem;
+  overflow: auto;
 `;
 
 const activeMenuItem = css`
@@ -115,8 +145,8 @@ const TitleBar = styled.section`
   border-bottom: 1px solid;
 `;
 
-function getId(ID) {
-  return `${ID}__ID`;
+function getId(ID, index) {
+  return `${ID}__ID__${index}`;
 }
 
 function App() {
@@ -128,24 +158,17 @@ function App() {
     const { event } = thing;
     setActiveSectionID(ID);
     setActiveTitle(title);
-    // console.log("thing:enter", thing, ID);
-  };
-
-  const handleLeave = (ID) => (thing) => {
-    const { event } = thing;
-    // console.log("thing:leave", thing, ID);
+    console.log("thing:enter", ID);
   };
 
   const handleMenuItemClick = (ID, title) => () => {
     const $scrollContainter = scrollRef?.current;
     const $scrollHeader = $scrollContainter.querySelector(`#${ID}`);
 
-    // $scrollHeader.scrollIntoView({ behavior: "smooth" });
     $scrollHeader.scrollIntoView();
-    // setActiveSectionID(ID);
-    // setActiveTitle(title);
   };
-  console.log(activeSectionID, activeTitle);
+
+  console.log("activez: ", activeSectionID, activeTitle);
 
   return (
     <Main>
@@ -153,34 +176,36 @@ function App() {
       <TitleBar>{activeTitle}</TitleBar>
       <MainContentWrapper>
         <Menu>
-          {titlez.map((title) => {
-            const ID = getId(title);
+          {titlezList.map((title, index) => {
+            const ID = getId(title, index);
             const isActive = ID === activeSectionID;
+            const text = `${title} ${index}`;
             return (
               <MenuItem
                 id={`${ID}__menu`}
-                key={title}
+                key={text}
                 isActive={isActive}
-                onClick={handleMenuItemClick(ID, title)}
+                onClick={handleMenuItemClick(ID, text)}
               >
-                {title}
+                {text}
               </MenuItem>
             );
           })}
         </Menu>
         <ContentWrapper ref={scrollRef}>
-          {titlez.map((title) => {
-            const ID = getId(title);
+          {titlezList.map((title, index) => {
+            const ID = getId(title, index);
+            const text = `${title} ${index}`;
             return (
               <Waypoint
-                onEnter={handleEnter(ID, title)}
-                onLeave={handleLeave(ID)}
-                key={title}
+                onEnter={handleEnter(ID, text)}
+                fireOnRapidScroll={false}
+                key={text}
               >
                 <Section id={ID}>
-                  <H1>{title}</H1>
+                  <H1>{text}</H1>
                   <Content>
-                    <Image src={logoObject[title]} alt={title} />
+                    <Image src={logoObject[title]} alt={text} />
                   </Content>
                 </Section>
               </Waypoint>
