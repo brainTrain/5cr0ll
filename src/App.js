@@ -71,13 +71,14 @@ const GlobalStyle = createGlobalStyle`
 
 const H1 = styled.h1`
   font-size: 4rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
 `;
 
 const Content = styled.section`
-  height: 100rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 `;
 
 const Section = styled.section`
@@ -87,7 +88,7 @@ const Section = styled.section`
 `;
 
 const Image = styled.img`
-  max-width: 40rem;
+  max-width: 100%;
 `;
 
 const ContentWrapper = styled.section`
