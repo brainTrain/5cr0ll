@@ -151,13 +151,17 @@ function getId(ID, index) {
 }
 
 function App() {
-  const [activeSectionID, setActiveSectionID] = React.useState(null);
-  const [activeTitle, setActiveTitle] = React.useState("");
+  const [{ activeSectionID, activeTitle }, setActiveState] = React.useState({
+    activeSectionID: null,
+    activeTitle: "",
+  });
   const scrollRef = React.useRef(null);
 
   const handleEnter = (ID, title) => (thing) => {
-    setActiveSectionID(ID);
-    setActiveTitle(title);
+    setActiveState({
+      activeSectionID: ID,
+      activeTitle: title,
+    });
   };
 
   const handleMenuItemClick = (ID, title) => () => {
